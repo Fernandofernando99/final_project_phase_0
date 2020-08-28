@@ -12,8 +12,8 @@ let foxX = Math.random() * (canvas.width-sizeWidth);
 let foxY = Math.random() * (canvas.height-sizeHeigth);
 let covX = Math.random() * (canvas.width-sizeWidth);
 let covY = Math.random() * (canvas.height-sizeHeigth);
-let foxdx = (Math.random() + 2.25) * 3;
-let foxdy = (Math.random() + 2.25) * 3;
+let foxdx = (Math.random() + 2.25) * 2.5;
+let foxdy = (Math.random() + 2.25) * 2.5;
 let covdx = (Math.random() + 1.5) * 2.25;
 let covdy = (Math.random() + 1.5) * 2.25;
 var toggle;
@@ -40,7 +40,7 @@ function countDown() {
 
 function animate() {  
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = `rgba(0,120,100,${String(timeBeforeBanish/5)})`;;
+  ctx.fillStyle = `rgba(0,0,0,${String(timeBeforeBanish/5)})`;;
   ctx.fill();
   ctx.fillRect(foxX, foxY, sizeWidth, sizeHeigth);
   if (foxX >= canvas.width - sizeWidth || foxX < 0) {
@@ -51,7 +51,7 @@ function animate() {
   } 
   foxX += foxdx;
   foxY += foxdy;
-  ctx.fillStyle = `rgba(0,0,0,${String(timeBeforeBanish/5)})`;
+  ctx.fillStyle = `rgba(255,255,255,${String(timeBeforeBanish/5)})`;
   ctx.fillRect(covX, covY, sizeWidth, sizeHeigth);
   if (covX >= canvas.width - sizeWidth || covX < 0) {
     covdx = -covdx;
