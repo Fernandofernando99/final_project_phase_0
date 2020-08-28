@@ -16,14 +16,14 @@ let covX = Math.random() * (canvas.width-sizeWWidth);
 let covY = Math.random() * (canvas.height-sizeWHeight);
 let foxdx = (Math.random() + 2) * 2;
 let foxdy = (Math.random() + 2) * 2;
-let covdx = (Math.random() + 2.5) * 3;
-let covdy = (Math.random() + 2.5) * 3;
+let covdx = (Math.random() + 2.5) * 3.25;
+let covdy = (Math.random() + 2.5) * 3.25;
 var toggle;
 let scoreStop = false;
 var image = document.getElementById("logo");
 let imagepattern = ctx.createPattern(image, "repeat");
-let timeBeforeBanish = 5;
-let ctDown = 5;
+let timeBeforeBanish = 3;
+let ctDown = 3;
 let ctDowntoDisplay = document.getElementById("countDownTime");
 var atur;
 var gameOverSnd = document.getElementById("gameOverSound");
@@ -42,7 +42,7 @@ function countDown() {
 
 function animate() {  
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = `rgba(0,0,0,${String(timeBeforeBanish/5)})`;;
+  ctx.fillStyle = `rgba(0,0,0,${String(timeBeforeBanish/3)})`;;
   ctx.fill();
   ctx.fillRect(foxX, foxY, sizeWidth, sizeHeight);
   if (foxX >= canvas.width - sizeWidth || foxX < 0) {
@@ -53,7 +53,7 @@ function animate() {
   } 
   foxX += foxdx;
   foxY += foxdy;
-  ctx.fillStyle = `rgba(255,255,255,${String(timeBeforeBanish/5)})`;
+  ctx.fillStyle = `rgba(255,255,255,${String(timeBeforeBanish/3)})`;
   ctx.fillRect(covX, covY, sizeWWidth, sizeWHeight);
   if (covX >= canvas.width - sizeWWidth || covX < 0) {
     covdx = -covdx;
@@ -85,8 +85,8 @@ function stopAnimate () {
   stopBtn.style.color = "black";
   scoreStop = true;
   clearInterval(atur);  
-  ctDown = 5;
-  timeBeforeBanish = 5;
+  ctDown = 3;
+  timeBeforeBanish = 3;
   ctDowntoDisplay.innerHTML = "Game Stopped - Cannot Score";
 }
 
