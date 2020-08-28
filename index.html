@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="style.css" rel="stylesheet">
+    <title>Click The Fox!!!</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1 class="h1title">Click The Fox!!!</h1>
+      <div><img src="img/fire-fox.png" id="logo"></div>
+    </div>
+    <div class="score-container">
+      <h2>Score:</h2>
+      <h2 id="score">0</h2>
+    </div>
+    <div class="btn-container">
+      <button id="startButton" onclick="gameStarted()">
+        Start
+      </button>
+      <button id="stopButton" onclick="stopAnimate()">
+        Stop
+      </button>
+    </div>
+    <div class="containerCanvas">
+      <canvas id="canvas"></canvas>
+      <div class="counterTimePlay">
+        <h2>Count down before you can score</h2>
+        <h2 id="countDownTime">5</h2>
+      </div>
+    </div>
+    <audio src="sound/game_over.ogg" id="gameOverSound"></audio>
+    <audio src="sound/correct.ogg" id="scoringSound"></audio>
+    <script src="script.js"></script>
+    <footer class="footer">
+      <h4>Copyright by Fernando</h4>
+    </footer>
+  </body>
+</html>
