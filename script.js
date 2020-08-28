@@ -6,16 +6,18 @@ canvas.height = 350;
 let ctx = canvas.getContext("2d"); //untuk rendering di browser dalam konteks 2dimensi
 let score = document.getElementById("score");
 let scoreValue = 0;
-let sizeHeigth = 50;
+let sizeHeight = 50;
 let sizeWidth = 50;
+let sizeWHeight = 75;
+let sizeWWidth = 75;
 let foxX = Math.random() * (canvas.width-sizeWidth);
-let foxY = Math.random() * (canvas.height-sizeHeigth);
-let covX = Math.random() * (canvas.width-sizeWidth);
-let covY = Math.random() * (canvas.height-sizeHeigth);
-let foxdx = (Math.random() + 2.25) * 2.5;
-let foxdy = (Math.random() + 2.25) * 2.5;
-let covdx = (Math.random() + 1.5) * 2.25;
-let covdy = (Math.random() + 1.5) * 2.25;
+let foxY = Math.random() * (canvas.height-sizeHeight);
+let covX = Math.random() * (canvas.width-sizeWWidth);
+let covY = Math.random() * (canvas.height-sizeWHeight);
+let foxdx = (Math.random() + 2) * 1.75;
+let foxdy = (Math.random() + 2) * 1.75;
+let covdx = (Math.random() + 2.5) * 3;
+let covdy = (Math.random() + 2.5) * 3;
 var toggle;
 let scoreStop = false;
 var image = document.getElementById("logo");
@@ -42,21 +44,21 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = `rgba(0,0,0,${String(timeBeforeBanish/5)})`;;
   ctx.fill();
-  ctx.fillRect(foxX, foxY, sizeWidth, sizeHeigth);
+  ctx.fillRect(foxX, foxY, sizeWidth, sizeHeight);
   if (foxX >= canvas.width - sizeWidth || foxX < 0) {
     foxdx = -foxdx;
   }
-  if (foxY >= canvas.height - sizeHeigth || foxY < 0) {
+  if (foxY >= canvas.height - sizeHeight || foxY < 0) {
     foxdy = -foxdy;
   } 
   foxX += foxdx;
   foxY += foxdy;
   ctx.fillStyle = `rgba(255,255,255,${String(timeBeforeBanish/5)})`;
-  ctx.fillRect(covX, covY, sizeWidth, sizeHeigth);
-  if (covX >= canvas.width - sizeWidth || covX < 0) {
+  ctx.fillRect(covX, covY, sizeWWidth, sizeWHeight);
+  if (covX >= canvas.width - sizeWWidth || covX < 0) {
     covdx = -covdx;
   }
-  if (covY >= canvas.height - sizeHeigth || covY < 0) {
+  if (covY >= canvas.height - sizeWHeight || covY < 0) {
     covdy = -covdy;
   } 
   covX += covdx;
@@ -101,18 +103,23 @@ canvas.addEventListener("click", function blueClicked(event) {
     x: event.offsetX,
     y: event.offsetY
   };
-  if (ctDown <= 0) {
+  let blackBoxClicked = false;
+  if (ctDown <= 0 && blackBoxClicked === false) {
     timeBeforeBanish = 1;
   }
-  if (pos.x >= foxX && pos.x <= foxX+sizeWidth && pos.y >= foxY && pos.y <= foxY+sizeHeigth) {
-    if (scoreStop === false && ctDown <= 0) {
+  if (pos.x >= foxX && pos.x <= foxX+sizeWidth && pos.y >= foxY && pos.y <= foxY+sizeHeight) {
+    if (scoreStop === false && ctDown <= 0.5) {
       scoringSnd.play();
       scoreValue++;
       score.innerHTML = scoreValue;
+      blackBoxClicked = true;
     }
-  } else if (pos.x >= covX && pos.x <= covX+sizeWidth && pos.y >= covY && pos.y <= covY+sizeHeigth) {
+  } else if (pos.x >= covX && pos.x <= covX+sizeWWidth && pos.y >= covY && pos.y <= covY+sizeWHeight) {
     stopAnimate();
     gameOverSnd.play();
+    blackBoxClicked = false;
+  } else {
+    blackBoxClicked = false;
   }
 }); 
 
