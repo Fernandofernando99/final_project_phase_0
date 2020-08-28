@@ -10,19 +10,25 @@ let sizeHeight = 50;
 let sizeWidth = 50;
 let sizeWHeight = 75;
 let sizeWWidth = 75;
+let sizeW2Height = 75;
+let sizeW2Width = 75;
 let foxX = Math.random() * (canvas.width-sizeWidth);
 let foxY = Math.random() * (canvas.height-sizeHeight);
 let covX = Math.random() * (canvas.width-sizeWWidth);
 let covY = Math.random() * (canvas.height-sizeWHeight);
+let cov2X = Math.random() * (canvas.width-sizeW2Width);
+let cov2Y = Math.random() * (canvas.height-sizeW2Height);
 let foxdx = (Math.random() + 3) * 1.2;
 let foxdy = (Math.random() + 3) * 1.2;
-let covdx = (Math.random() + 2.5) * 3.25;
-let covdy = (Math.random() + 2.5) * 3.25;
+let covdx = (Math.random() + 4) * 1.5;
+let covdy = (Math.random() + 4) * 1.5;
+let cov2dx = (Math.random() + 5.5) * 1.25;
+let cov2dy = (Math.random() + 5.5) * 1.25;
 var toggle;
 let scoreStop = false;
 var image = document.getElementById("logo");
 let imagepattern = ctx.createPattern(image, "repeat");
-let timeBeforeBanish = 3;
+let timeBeforeBanish = 2;
 let ctDown = 3;
 let ctDowntoDisplay = document.getElementById("countDownTime");
 var atur;
@@ -42,7 +48,7 @@ function countDown() {
 
 function animate() {  
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = `rgba(0,0,0,${String(timeBeforeBanish/3)})`;;
+  ctx.fillStyle = `rgba(0,0,0,${String(timeBeforeBanish/2)})`;;
   ctx.fill();
   ctx.fillRect(foxX, foxY, sizeWidth, sizeHeight);
   if (foxX >= canvas.width - sizeWidth || foxX < 0) {
@@ -53,7 +59,7 @@ function animate() {
   } 
   foxX += foxdx;
   foxY += foxdy;
-  ctx.fillStyle = `rgba(255,255,255,${String(timeBeforeBanish/3)})`;
+  ctx.fillStyle = `rgba(255,255,255,${String(timeBeforeBanish/2)})`;
   ctx.fillRect(covX, covY, sizeWWidth, sizeWHeight);
   if (covX >= canvas.width - sizeWWidth || covX < 0) {
     covdx = -covdx;
@@ -63,6 +69,16 @@ function animate() {
   } 
   covX += covdx;
   covY += covdy;
+  ctx.fillStyle = `rgba(255,255,255,${String(timeBeforeBanish/2)})`;
+  ctx.fillRect(cov2X, cov2Y, sizeW2Width, sizeW2Height);
+  if (cov2X >= canvas.width - sizeW2Width || cov2X < 0) {
+    cov2dx = -cov2dx;
+  }
+  if (cov2Y >= canvas.height - sizeW2Height || cov2Y < 0) {
+    cov2dy = -cov2dy;
+  } 
+  cov2X += cov2dx;
+  cov2Y += cov2dy;
   toggle = window.requestAnimationFrame(animate);
 }
 
@@ -86,7 +102,7 @@ function stopAnimate () {
   scoreStop = true;
   clearInterval(atur);  
   ctDown = 3;
-  timeBeforeBanish = 3;
+  timeBeforeBanish = 2;
   ctDowntoDisplay.innerHTML = "Game Stopped - Cannot Score";
 }
 
@@ -107,14 +123,12 @@ canvas.addEventListener("click", function blueClicked(event) {
   if (ctDown <= 0 && blackBoxClicked === false) {
     timeBeforeBanish = 1;
   }
-  if (pos.x >= foxX && pos.x <= foxX+sizeWidth && pos.y >= foxY && pos.y <= foxY+sizeHeight) {
-    if (scoreStop === false && ctDown === 0) {
+  if (pos.x >= foxX && pos.x <= foxX+sizeWidth && pos.y >= foxY && pos.y <= foxY+sizeHeight && scoreStop === false && ctDown < 1) {
       scoringSnd.play();
       scoreValue++;
       score.innerHTML = scoreValue;
       blackBoxClicked = true;
-    }
-  } else if (pos.x >= covX && pos.x <= covX+sizeWWidth && pos.y >= covY && pos.y <= covY+sizeWHeight) {
+  } else if ((pos.x >= covX && pos.x <= covX+sizeWWidth && pos.y >= covY && pos.y <= covY+sizeWHeight && ctDown < 1) || (pos.x >= cov2X && pos.x <= cov2X+sizeW2Width && pos.y >= cov2Y && pos.y <= cov2Y+sizeW2Height && ctDown < 1)) {
     stopAnimate();
     gameOverSnd.play();
     blackBoxClicked = false;
