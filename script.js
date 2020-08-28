@@ -14,8 +14,8 @@ let foxX = Math.random() * (canvas.width-sizeWidth);
 let foxY = Math.random() * (canvas.height-sizeHeight);
 let covX = Math.random() * (canvas.width-sizeWWidth);
 let covY = Math.random() * (canvas.height-sizeWHeight);
-let foxdx = (Math.random() + 2) * 2;
-let foxdy = (Math.random() + 2) * 2;
+let foxdx = (Math.random() + 3) * 1.2;
+let foxdy = (Math.random() + 3) * 1.2;
 let covdx = (Math.random() + 2.5) * 3.25;
 let covdy = (Math.random() + 2.5) * 3.25;
 var toggle;
@@ -108,7 +108,7 @@ canvas.addEventListener("click", function blueClicked(event) {
     timeBeforeBanish = 1;
   }
   if (pos.x >= foxX && pos.x <= foxX+sizeWidth && pos.y >= foxY && pos.y <= foxY+sizeHeight) {
-    if (scoreStop === false && ctDown <= 0.5) {
+    if (scoreStop === false && ctDown === 0) {
       scoringSnd.play();
       scoreValue++;
       score.innerHTML = scoreValue;
