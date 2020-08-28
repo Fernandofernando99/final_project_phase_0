@@ -43,7 +43,7 @@ ul {
 
 #canvas {
   border: 3px solid black;
-  background-color: #ff5722;
+  background-image: linear-gradient(#ff5722, #810000); 
 }
 
 button {
@@ -78,7 +78,7 @@ button {
 }
 
 .header h1 { 
-  background-image: linear-gradient(#ff5722, #fa7d09) ;
+  background-image: linear-gradient(#ff5722, #fa7d09);
   border-bottom: 1px solid black;
   padding: 10px 0 5px 0;
   color: #1b262c;
